@@ -10,9 +10,9 @@ import os  # Import os module to handle directory creation
 class SimpleModel(nn.Module):
     def __init__(self):
         super(SimpleModel, self).__init__()
-        self.fc1 = nn.Linear(28 * 28, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 10)
+        self.fc1 = nn.Linear(28 * 28, 30)  # Reduced to 30 neurons
+        self.fc2 = nn.Linear(30, 16)       # Reduced to 16 neurons
+        self.fc3 = nn.Linear(16, 10)       # Output layer remains the same
 
     def forward(self, x):
         x = x.view(-1, 28 * 28)
