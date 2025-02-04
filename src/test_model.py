@@ -2,6 +2,7 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from train import SimpleModel
+import glob  # Import glob to find the latest model file
 
 # Load MNIST test dataset
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
@@ -10,7 +11,10 @@ test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 # Load the latest trained model
 model = SimpleModel()
-model_path = sorted(glob("../models/*.pth"))[-1]  # Get the most recent model
+model_files = glob.glob("../models/*.pth")  # Find all model files
+if not model_files:
+    raise FileNotFoundError("No model files found in ../models/")
+model_path = sorted(model_files)[-1]  # Get the most recent model
 model.load_state_dict(torch.load(model_path))
 model.eval()
 

@@ -4,6 +4,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from datetime import datetime
+import os  # Import os module to handle directory creation
 
 # Define a simple model with <25,000 parameters
 class SimpleModel(nn.Module):
@@ -38,6 +39,9 @@ for epoch in range(1):
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
+
+# Create the models directory if it doesn't exist
+os.makedirs("../models", exist_ok=True)
 
 # Save the model with a timestamp suffix
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
